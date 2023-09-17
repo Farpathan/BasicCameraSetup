@@ -2,29 +2,27 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 
-// Constructor
 AMyGameCharacter::AMyGameCharacter()
 {
-    // Set this character to call Tick() every frame.
     PrimaryActorTick.bCanEverTick = true;
 
-    // Create a camera boom (spring arm component)
+    // Camera Boom (spring arm component)
     CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
     CameraBoom->SetupAttachment(RootComponent);
     CameraBoom->TargetArmLength = 300.0f; // Set the camera distance
     CameraBoom->bUsePawnControlRotation = true;
 
-    // Create a camera component
+    // Camera Component
     CameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraComponent"));
     CameraComponent->SetupAttachment(CameraBoom);
 
-    // Set this character to be able to turn around quickly, without waiting for the rotation animation to finish.
+    // Character Rotation
     bUseControllerRotationYaw = false;
     GetCharacterMovement()->bOrientRotationToMovement = true;
     GetCharacterMovement()->RotationRate = FRotator(0.0f, 540.0f, 0.0f);
 }
 
-// Called when the game starts or when spawned
+// Called when the game starts
 void AMyGameCharacter::BeginPlay()
 {
     Super::BeginPlay();
@@ -36,7 +34,7 @@ void AMyGameCharacter::Tick(float DeltaTime)
     Super::Tick(DeltaTime);
 }
 
-// Called to bind functionality to input
+// Bind functionality to user input
 void AMyGameCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
     Super::SetupPlayerInputComponent(PlayerInputComponent);
